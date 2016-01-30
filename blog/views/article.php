@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Мой первй блог</h1>
+        <h1>Мой первый блог</h1>
         <div>
             <div class="article">
                     <h3><?=$article['title']?></h3>

@@ -2,14 +2,26 @@
 
 //View all articles
 //
-function articles_all () {
-    $art1 = ["id"=>1, "title"=>"Title 1", "date"=>"2016-01-30", "content"=>"Content 1"];
-    $art2 = ["id"=>2, "title"=>"Title 2", "date"=>"2016-01-30", "content"=>"Content 2"];
+function articles_all ($link) {
 
-    $arr[0] = $art1;
-    $arr[1] = $art2;
+    //The query
+    $query = "SELECT * FROM articles ORDER BY id DESC";
+    $result = mysqli_query($link, $query);
 
-    return $arr;
+    if (!$result)
+        die(mysqli_error($link));
+
+    //Extract the result from DB
+    $n = mysqli_num_rows($result);
+    $articles = array();
+
+    for ($i = 0; $i < $n; $i++) {
+        $row = mysqli_fetch_assoc($result);
+        $articles[] = $row;
+    }
+
+
+    return $articles;
 
 }
 

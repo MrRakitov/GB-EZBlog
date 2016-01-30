@@ -27,10 +27,18 @@ function articles_all ($link) {
 
 //Get article with specific id
 //
-function articles_get ($id) {
+function articles_get ($link, $id_article) {
 
-    return ["id"=>1, "title"=>"It is a simple title", "date"=>"2016-01-30", "content"=>"Here will be an article"];
+    //The query
+    $query = sprintf("SELECT * FROM articles WHERE id=%d", (int)$id_article);
+    $result = mysqli_query($link, $query);
 
+    if (!$result)
+        die(mysqli_error($link));
+
+    $article = mysqli_fetch_assoc($result);
+
+    return $article;
 }
 
 //Create a new article

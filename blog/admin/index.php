@@ -4,7 +4,22 @@
 
     $link = db_connect();
 
-    $articles = articles_all($link);
+    if(isset($_GET['action'])){
+        $action = $_GET['action'];
+    }else{
+        $action = "";
+    }
 
-    include("../views/articles_admin.php");
+
+    if ($action == "add") {
+        if(!empty($_POST)) {
+            articles_new($link, $_POST['title'], $_POST['date'], $_POST['content']);
+            header("Location: index.php");
+        }
+        include ("../views/article_admin.php");
+    } else {
+        $articles = articles_all($link);
+        include("../views/articles_admin.php");
+    }
+
 ?>

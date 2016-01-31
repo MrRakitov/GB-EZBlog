@@ -120,6 +120,10 @@ function articles_delete ($link, $id) {
 }
 
 
+function articles_intro($text, $len = 500) {
+    return mb_substr($text, 0, $len);
+}
+
 
 
 ?>

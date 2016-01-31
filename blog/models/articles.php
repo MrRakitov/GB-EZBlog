@@ -100,7 +100,22 @@ function articles_edit ($link, $id, $title, $date, $content) {
 
 //Delete article with specific id
 //
-function articles_delete ($id) {
+function articles_delete ($link, $id) {
+
+    $id = (int)$id;
+
+    //Checking
+    if ($id == 0)
+        return false;
+
+    //The Query
+    $query = sprintf("DELETE FROM articles WHERE id='%d'", $id);
+    $result = mysqli_query($link, $query);
+
+    if (!$result)
+        die(mysqli_error($link));
+
+    return mysqli_affected_rows($link);
 
 }
 

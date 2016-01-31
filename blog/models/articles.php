@@ -69,8 +69,33 @@ function articles_new ($link, $title, $date, $content) {
 
 //
 //
-function articles_edit ($id, $title, $date, $content) {
+function articles_edit ($link, $id, $title, $date, $content) {
 
+    //Preparation
+    $title = trim($title);
+    $content = trim($content);
+    $date = trim($date);
+    $id = (int)$id;
+
+    //Check
+    if ($title == '')
+        return false;
+
+
+    //The query
+    $sql = "UPDATE articles SET title='%s', content='%s', date='%s' WHERE id='%d'";
+
+    $query = sprintf($sql, mysqli_real_escape_string($link, $title),
+                            mysqli_real_escape_string($link, $content),
+                            mysqli_real_escape_string($link, $date),
+                     $id);
+
+    $result = mysqli_query($link, $query);
+
+    if (!$result)
+        die(mysqli_error($link));
+
+    return mysqli_affected_rows($link);
 }
 
 //Delete article with specific id
